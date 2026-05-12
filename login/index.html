@@ -1,165 +1,295 @@
-﻿<!DOCTYPE html><html lang="pt"><head>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Login - Novena de Nossa Senhora Desatadora de Nós</title>
+  <title>Novena de Nossa Senhora Desatadora de Nós</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #1a365d 0%, #0f2042 100%);
-      font-family: 'Lato', sans-serif;
-      color: #fff;
-    }
-    body {
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      font-family: 'Lato', sans-serif;
+      background: #07133a;
     }
-    .login-container {
-      width: 100%;
-      max-width: 410px;
-      background: rgba(18, 32, 60, 0.65);
-      border-radius: 22px;
-      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
-      padding: 44px 32px 32px 32px;
-      backdrop-filter: blur(10px) saturate(140%);
-      border: 1.5px solid rgba(255,255,255,0.13);
-      position: relative;
-      z-index: 2;
+
+    /* ── FUNDO FIXO COM A IMAGEM ── */
+    .page-bg {
+      position: fixed;
+      inset: 0;
+      background: url('images/nossa-senhora-desatadora.jpg') center top / cover no-repeat;
+      z-index: 0;
     }
-    .login-title {
-      font-family: 'Cinzel', serif;
-      color: #ffd700;
-      font-size: 2.1rem;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 8px;
-      letter-spacing: 0.5px;
-      text-shadow: 0 2px 8px #00000033;
-    }
-    .login-desc {
-      color: #e6e6e6;
-      text-align: center;
-      margin-bottom: 26px;
-      font-size: 1.09rem;
-    }
-    .form-label {
-      color: #ffd700;
-      font-weight: 600;
-      letter-spacing: 0.2px;
-    }
-    .form-control {
-      border-radius: 10px;
-      border: 1.5px solid #ffd6d6;
-      font-size: 1.08rem;
-      background: rgba(255,255,255,0.08);
-      color: #fff;
-      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
-    }
-    .form-control:focus {
-      border-color: #ffd700;
-      box-shadow: 0 0 0 2px #ffeaea;
-      background: rgba(255,255,255,0.13);
-      color: #fff;
-    }
-    .btn-login {
-      background: linear-gradient(90deg, #ffd700 0%, #f5e290 100%);
-      color: #0f2042;
-      border: none;
-      border-radius: 30px;
-      font-weight: bold;
-      font-size: 1.13rem;
-      padding: 13px 0;
-      width: 100%;
-      box-shadow: 0 4px 18px rgba(212,175,55,0.13);
-      margin-top: 12px;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s, box-shadow 0.2s;
-    }
-    .btn-login::after {
+    .page-bg::after {
       content: '';
       position: absolute;
-      left: -75%;
-      top: 0;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(120deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.01) 100%);
-      transform: skewX(-25deg);
-      transition: left 0.5s;
-      z-index: 1;
+      inset: 0;
+      background: linear-gradient(180deg,
+        rgba(5,10,40,0.55) 0%,
+        rgba(5,10,40,0.72) 60%,
+        rgba(5,10,40,0.96) 100%
+      );
     }
-    .btn-login:hover, .btn-login:focus {
-      background: linear-gradient(90deg, #ffe066 0%, #ffd700 100%);
-      color: #0f2042;
-      box-shadow: 0 6px 24px rgba(212,175,55,0.18);
-      transform: translateY(-2px) scale(1.03);
+
+    /* ── ESTRELAS ── */
+    .stars { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+    .s {
+      position: absolute; border-radius: 50%;
+      background: #fff; opacity: 0;
+      animation: tw var(--d) var(--dl) infinite;
     }
-    .btn-login:hover::after {
-      left: 120%;
+    @keyframes tw {
+      0%,100% { opacity: 0; } 50% { opacity: 0.85; }
     }
-    .login-footer {
-      text-align: center;
-      color: #aaa;
-      font-size: 1.01rem;
-      margin-top: 32px;
-      letter-spacing: 0.1px;
-    }
-    .login-icon {
+
+    /* ── LAYOUT ── */
+    body {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      margin-bottom: 18px;
+      justify-content: flex-end;
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      padding-bottom: 0;
     }
-    .login-icon i {
-      font-size: 3.3rem;
-      color: #ffd700;
-      filter: drop-shadow(0 2px 8px #00000033);
+
+    /* ── FOTO DE NOSSA SENHORA — visível acima do card ── */
+    .saint-photo-wrap {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: -50px; /* sobrepõe o card */
     }
-    @media (max-width: 600px) {
-      .login-container { padding: 22px 8px 18px 8px; }
-      .login-title { font-size: 1.5rem; }
-      .login-icon i { font-size: 2.2rem; }
+    .saint-photo {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: top center;
+      border: 4px solid #D4AF37;
+      box-shadow:
+        0 0 0 6px rgba(212,175,55,0.20),
+        0 8px 36px rgba(0,0,0,0.55);
+      animation: glow 3s ease-in-out infinite;
     }
-    /* Efeito de brilho sutil no fundo */
-    body::before {
-      content: '';
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: radial-gradient(circle at 70% 20%, #ffd70022 0%, transparent 60%),
-                  radial-gradient(circle at 20% 80%, #d4af3722 0%, transparent 60%);
-      z-index: 0;
-      pointer-events: none;
+    @keyframes glow {
+      0%,100% { box-shadow: 0 0 0 6px rgba(212,175,55,0.18), 0 8px 36px rgba(0,0,0,0.55); }
+      50%      { box-shadow: 0 0 0 10px rgba(212,175,55,0.35), 0 8px 44px rgba(212,175,55,0.30); }
+    }
+
+    /* ── CARD ── */
+    .login-card {
+      position: relative;
+      z-index: 3;
+      width: 100%;
+      background: rgba(7, 18, 58, 0.88);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border-top: 1.5px solid rgba(212,175,55,0.35);
+      border-radius: 36px 36px 0 0;
+      padding: 70px 28px 56px; /* espaço pro foto sobreposta */
+      box-shadow: 0 -6px 50px rgba(0,0,0,0.40);
+      text-align: center;
+    }
+
+    /* alça */
+    .handle {
+      width: 44px; height: 4px;
+      background: rgba(212,175,55,0.35);
+      border-radius: 2px;
+      margin: 0 auto 24px;
+      display: none; /* aparece só no mobile — habilitado via JS */
+    }
+
+    .label-top {
+      font-family: 'Cinzel', serif;
+      font-size: 0.68rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(212,175,55,0.80);
+      margin-bottom: 6px;
+    }
+    .title-card {
+      font-family: 'Cinzel', serif;
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 4px;
+    }
+    .subtitle-card {
+      font-size: 0.90rem;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 28px;
+      font-style: italic;
+    }
+
+    /* ornamento */
+    .orn { color: rgba(212,175,55,0.50); letter-spacing: 8px; font-size: 0.78rem; margin-bottom: 22px; }
+
+    /* Campo */
+    .field-label {
+      display: block;
+      text-align: left;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #D4AF37;
+      letter-spacing: 0.4px;
+      margin-bottom: 8px;
+    }
+    .field-input {
+      width: 100%;
+      background: rgba(255,255,255,0.07);
+      border: 1.5px solid rgba(212,175,55,0.28);
+      border-radius: 14px;
+      color: #fff;
+      font-size: 1rem;
+      padding: 15px 18px;
+      outline: none;
+      transition: border-color .25s, box-shadow .25s;
+      -webkit-appearance: none;
+    }
+    .field-input::placeholder { color: rgba(255,255,255,0.28); }
+    .field-input:focus {
+      border-color: #D4AF37;
+      box-shadow: 0 0 0 3px rgba(212,175,55,0.16);
+      background: rgba(255,255,255,0.10);
+    }
+
+    /* Botão */
+    .btn-enter {
+      display: block;
+      width: 100%;
+      margin-top: 18px;
+      padding: 16px;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #06103a;
+      background: linear-gradient(135deg, #c9950a 0%, #f7de6a 50%, #c9950a 100%);
+      background-size: 200% auto;
+      box-shadow: 0 5px 30px rgba(212,175,55,0.45);
+      cursor: pointer;
+      transition: background-position .4s, transform .2s, box-shadow .3s;
+    }
+    .btn-enter:hover  { background-position: right center; transform: translateY(-2px); box-shadow: 0 8px 38px rgba(212,175,55,0.60); }
+    .btn-enter:active { transform: translateY(0); }
+
+    /* Citação */
+    .quote {
+      margin-top: 28px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(212,175,55,0.14);
+      font-size: 0.88rem;
+      font-style: italic;
+      color: rgba(212,175,55,0.70);
+      line-height: 1.65;
+    }
+
+    .footer-copy {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.22);
+      margin-top: 16px;
+    }
+
+    /* ── DESKTOP ── */
+    @media (min-width: 540px) {
+      body { justify-content: center; padding: 40px 16px; }
+      .saint-photo-wrap { margin-bottom: -60px; }
+      .saint-photo { width: 150px; height: 150px; }
+      .login-card {
+        border-radius: 28px;
+        border: 1.5px solid rgba(212,175,55,0.30);
+        max-width: 420px;
+        padding: 80px 40px 44px;
+        box-shadow: 0 16px 70px rgba(0,0,0,0.50);
+      }
+      .title-card { font-size: 1.75rem; }
     }
   </style>
 </head>
-<!-- ds -->
 <body>
-  <div class="login-container">
-    <div class="login-icon">
-      <i class="fas fa-user-circle"></i>
-    </div>
-    <div class="login-title">Bem-vindo!</div>
-    <div class="login-desc">Acesse a Novena de Nossa Senhora Desatadora de Nós digitando seu e-mail abaixo.</div>
-    <form id="loginForm" autocomplete="off">
-      <div class="mb-3">
-        <label for="email" class="form-label">E-mail</label>
-        <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu e-mail" required="">
-      </div>
-      <button type="submit" class="btn btn-login"><i class="fas fa-sign-in-alt me-2"></i>Entrar</button>
-    </form>
-    <div class="login-footer mt-4">© 2025 Novena de Nossa Senhora Desatadora de Nós</div>
+
+  <div class="page-bg"></div>
+  <div class="stars" id="stars"></div>
+
+  <!-- Foto sobreposta ao card -->
+  <div class="saint-photo-wrap">
+    <img
+      src="images/nossa-senhora-desatadora.jpg"
+      alt="Nossa Senhora Desatadora de Nós"
+      class="saint-photo"
+    >
   </div>
+
+  <!-- Card de login -->
+  <div class="login-card">
+    <div class="handle" id="handle"></div>
+
+    <p class="label-top">✦ Devoção Mariana ✦</p>
+    <h1 class="title-card">Nossa Senhora<br>Desatadora de Nós</h1>
+    <p class="subtitle-card">Novena Sagrada de 9 Dias</p>
+
+    <div class="orn">— ✦ —</div>
+
+    <form id="loginForm" autocomplete="off">
+      <label for="email" class="field-label">Seu e-mail</label>
+      <input
+        type="email"
+        id="email"
+        class="field-input"
+        placeholder="seuemail@exemplo.com"
+        required
+        inputmode="email"
+      >
+      <button type="submit" class="btn-enter">
+        <i class="fas fa-dove me-2"></i>Acessar Minha Novena
+      </button>
+    </form>
+
+    <p class="quote">
+      "Ela desfaz os nós que aprisionam<br>nossa alma e nosso coração."
+    </p>
+
+    <p class="footer-copy">© 2025 · Novena de Nossa Senhora Desatadora de Nós</p>
+  </div>
+
   <script>
+    // Estrelas
+    const stars = document.getElementById('stars');
+    for (let i = 0; i < 50; i++) {
+      const el = document.createElement('div');
+      el.className = 's';
+      const size = Math.random() < 0.3 ? 3 : 2;
+      el.style.cssText = `
+        width:${size}px; height:${size}px;
+        left:${Math.random()*100}%;
+        top:${Math.random()*70}%;
+        --d:${(2+Math.random()*3).toFixed(1)}s;
+        --dl:${(Math.random()*5).toFixed(1)}s;
+      `;
+      stars.appendChild(el);
+    }
+
+    // Handle visível só no mobile
+    if (window.innerWidth < 540) {
+      document.getElementById('handle').style.display = 'block';
+    }
+
+    // Submit
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      window.location.href = 'https://conexaoprosperidade.site/inicio-oracoes-principal';
+      window.location.href = 'https://prazermolhado.site/inicio-oracoes-principal';
     });
   </script>
-
- </body></html>
+</body>
+</html>
