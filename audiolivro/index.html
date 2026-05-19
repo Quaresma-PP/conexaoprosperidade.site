@@ -131,7 +131,7 @@
               <div class="time-label" id="time0">0:00</div>
             </div>
           </div>
-          <audio id="audio0" src="audios/Dia 1.mp3" preload="metadata"></audio>
+          <audio id="audio0" src="audios/Dia%201.mp3" preload="none"></audio>
         </div>
       </div>
 
@@ -148,7 +148,7 @@
               <div class="time-label" id="time1">0:00</div>
             </div>
           </div>
-          <audio id="audio1" src="audios/Dia 2.mp3" preload="metadata"></audio>
+          <audio id="audio1" src="audios/Dia%202.mp3" preload="none"></audio>
         </div>
       </div>
 
@@ -165,7 +165,7 @@
               <div class="time-label" id="time2">0:00</div>
             </div>
           </div>
-          <audio id="audio2" src="audios/Dia 3.mp3" preload="metadata"></audio>
+          <audio id="audio2" src="audios/Dia%203.mp3" preload="none"></audio>
         </div>
       </div>
 
@@ -182,7 +182,7 @@
               <div class="time-label" id="time3">0:00</div>
             </div>
           </div>
-          <audio id="audio3" src="audios/Dia 4.mp3" preload="metadata"></audio>
+          <audio id="audio3" src="audios/Dia%204.mp3" preload="none"></audio>
         </div>
       </div>
 
@@ -199,7 +199,7 @@
               <div class="time-label" id="time4">0:00</div>
             </div>
           </div>
-          <audio id="audio4" src="audios/Dia 5.mp3" preload="metadata"></audio>
+          <audio id="audio4" src="audios/Dia%205.mp3" preload="none"></audio>
         </div>
       </div>
 
@@ -216,7 +216,7 @@
               <div class="time-label" id="time5">0:00</div>
             </div>
           </div>
-          <audio id="audio5" src="audios/Dia 6.mp3" preload="metadata"></audio>
+          <audio id="audio5" src="audios/Dia%206.mp3" preload="none"></audio>
         </div>
       </div>
 
@@ -233,7 +233,7 @@
               <div class="time-label" id="time6">0:00</div>
             </div>
           </div>
-          <audio id="audio6" src="audios/Dia 7.mp3" preload="metadata"></audio>
+          <audio id="audio6" src="audios/Dia%207.mp3" preload="none"></audio>
         </div>
       </div>
 
@@ -309,7 +309,7 @@
       const a = document.getElementById('audio' + idx);
       if (!a || !a.duration) return;
       const rect = e.currentTarget.getBoundingClientRect();
-      const pct = (e.clientX - rect.left) / rect.width;
+      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
       a.currentTime = pct * a.duration;
     }
 
