@@ -3,167 +3,351 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Audiolivro - 7 Orações de Nossa Senhora</title>
+  <title>Audiolivro - 9 Orações de Nossa Senhora Desatadora de Nós</title>
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
-    body, html { margin: 0; padding: 0; font-family: 'Lato', sans-serif; background: linear-gradient(135deg, #1a365d 0%, #0f2042 100%); color: white; min-height: 100vh; font-size: 18px; }
-    .title-font { font-family: 'Cinzel', serif; }
-    .golden-text { color: #d4af37; }
-    .section-divider { display: flex; align-items: center; margin: 30px 0; }
-    .divider-line { flex-grow: 1; height: 2px; background: linear-gradient(to right, transparent, #d4af37, transparent); }
-    .divider-icon { font-size: 28px; color: #d4af37; margin: 0 18px; }
-    .back-btn { background: none; border: none; color: #d4af37; font-size: 1.1rem; font-weight: bold; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; text-decoration: none; }
-    .back-btn:hover { color: #fff; text-decoration: underline; }
-    .day-card { background: rgba(10,22,46,0.92); border: 2px solid #d4af37; border-radius: 18px; margin-bottom: 22px; box-shadow: 0 4px 16px rgba(0,0,0,0.18); padding: 24px 18px; text-align: center; }
-    .day-badge { background: #d4af37; color: #0f2042; padding: 8px 16px; border-radius: 20px; font-weight: bold; font-size: 20px; display: inline-block; margin-bottom: 12px; }
-    .day-title { font-family: 'Cinzel', serif; color: #d4af37; font-size: 22px; font-weight: bold; margin-bottom: 10px; }
-    .day-description { color: white; font-size: 17px; margin-bottom: 18px; }
-    .audio-player { margin: 0 auto 10px auto; width: 100%; max-width: 320px; background: #162a4b; border-radius: 10px; box-shadow: 0 2px 12px #0003; padding: 10px; display: flex; align-items: center; gap: 14px;}
-    .audio-player button { background: #d4af37; border: none; color: #0f2042; border-radius: 50%; width: 46px; height: 46px; font-size: 26px; display: flex; align-items: center; justify-content: center; transition: background 0.2s;}
-    .audio-player button:hover { background: #fff; color: #d4af37;}
-    .audio-player audio { width: 175px; vertical-align: middle; }
-    @media (max-width: 600px) { .container { padding: 0 5px; } .day-card { padding: 16px 6px; } .audio-player { max-width: 98vw; } }
+    *{box-sizing:border-box}
+    body,html{margin:0;padding:0;font-family:'Lato',sans-serif;background:linear-gradient(160deg,#0d1f50 0%,#0a1640 50%,#0e1e4a 100%);background-attachment:fixed;color:white;min-height:100vh;font-size:17px}
+    .title-font{font-family:'Cinzel',serif}
+    .golden-text{color:#d4af37}
+    .overlay-pattern{background-image:url('https://www.transparenttextures.com/patterns/crosses.png');opacity:.06;position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1}
+
+    .back-btn{background:none;border:none;color:#d4af37;font-size:1rem;font-weight:bold;display:inline-flex;align-items:center;gap:8px;text-decoration:none;padding:0}
+    .back-btn:hover{color:#fff;text-decoration:underline}
+
+    .section-divider{display:flex;align-items:center;margin:22px 0}
+    .divider-line{flex-grow:1;height:2px;background:linear-gradient(to right,transparent,#d4af37,transparent)}
+    .divider-icon{font-size:24px;color:#d4af37;margin:0 16px}
+
+    .day-card{
+      background:rgba(8,18,50,.92);
+      border:2px solid rgba(212,175,55,.65);
+      border-radius:18px;
+      padding:22px 16px;
+      text-align:center;
+      transition:transform .25s,box-shadow .25s;
+      box-shadow:0 4px 16px rgba(0,0,0,.20);
+      height:100%;
+    }
+    .day-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px rgba(212,175,55,.28);border-color:rgba(212,175,55,.9)}
+
+    .day-badge{background:#d4af37;color:#06103a;padding:7px 16px;border-radius:20px;font-weight:bold;font-size:17px;display:inline-block;margin-bottom:12px}
+    .day-title{font-family:'Cinzel',serif;color:#d4af37;font-size:18px;font-weight:bold;margin-bottom:10px}
+    .day-description{color:#e6e6e6;font-size:15px;margin-bottom:18px;line-height:1.55}
+
+    /* Player */
+    .audio-player{
+      margin:0 auto;
+      width:100%;
+      max-width:300px;
+      background:rgba(6,16,58,.80);
+      border:1.5px solid rgba(212,175,55,.35);
+      border-radius:14px;
+      padding:14px 16px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .play-btn{
+      background:#d4af37;
+      border:none;
+      color:#06103a;
+      border-radius:50%;
+      width:46px;
+      height:46px;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+      cursor:pointer;
+      transition:background .2s,transform .15s;
+    }
+    .play-btn:hover{background:#f2d675;transform:scale(1.08)}
+    .play-btn:active{transform:scale(.96)}
+
+    .progress-wrap{flex:1;display:flex;flex-direction:column;gap:6px}
+    .progress-bar-bg{height:5px;background:rgba(255,255,255,.15);border-radius:3px;cursor:pointer;overflow:hidden}
+    .progress-bar-fill{height:100%;background:#d4af37;border-radius:3px;width:0%;transition:width .3s linear}
+    .time-label{font-size:.72rem;color:rgba(255,255,255,.45);text-align:right}
+
+    .audio-unavailable{
+      font-size:.82rem;
+      color:rgba(255,255,255,.40);
+      font-style:italic;
+      padding:10px 0 4px;
+    }
+
+    .btn-voltar{border:2px solid rgba(255,255,255,.55);padding:10px 22px;border-radius:25px;color:#fff;font-size:.95rem;text-decoration:none;display:inline-block;transition:all .3s}
+    .btn-voltar:hover{background:rgba(212,175,55,.2);border-color:#d4af37;color:#d4af37}
+
+    @media(max-width:575px){
+      .day-card{padding:16px 10px}
+      .day-title{font-size:16px}
+    }
   </style>
 </head>
-<!-- ds -->
 <body>
-  <div class="container py-4">
-    <a href="https://conexaoprosperidade.site/inicio-oracoes-principal" class="back-btn"><i class="fas fa-arrow-left"></i> Voltar para o Início</a>
-    <h1 class="title-font golden-text mb-2 text-center">Audiolivro - 7 Orações de Nossa Senhora</h1>
-    <p class="body-font text-white fs-5 mb-2 text-center" style="font-weight:500;">Ouça cada prece poderosa inspirada em Nossa Senhora Desatadora de Nos</p>
-    <div class="section-divider" style="margin: 18px 0;">
+  <div class="overlay-pattern"></div>
+
+  <div class="container py-4" style="max-width:1000px">
+
+    <a href="https://conexaoprosperidade.site/inicio-oracoes-principal" class="back-btn mb-3 d-inline-flex">
+      <i class="fas fa-arrow-left"></i> Voltar para o Início
+    </a>
+
+    <div class="text-center mb-2">
+      <p style="color:rgba(212,175,55,.65);letter-spacing:4px;font-size:.72rem;font-family:'Cinzel',serif;">— ✦ DEVOÇÃO MARIANA ✦ —</p>
+      <h1 class="title-font golden-text mb-1" style="font-size:1.9rem">
+        <i class="fas fa-headphones me-2"></i>Audiolivro — 9 Orações de Nossa Senhora
+      </h1>
+      <p style="color:rgba(255,255,255,.65);font-size:.95rem">Ouça cada prece poderosa inspirada em Nossa Senhora Desatadora de Nós</p>
+    </div>
+
+    <div class="section-divider">
       <div class="divider-line"></div>
       <div class="divider-icon"><i class="fas fa-star"></i></div>
       <div class="divider-line"></div>
     </div>
-    <p class="day-description text-center mb-4" style="font-size:17px; color:#e6e6e6; max-width: 600px; margin-left:auto; margin-right:auto;">
-      Clique no play abaixo do dia desejado para ouvir a oração em áudio e sinta-se acompanhado espiritualmente em sua jornada.
+
+    <p class="text-center mb-4" style="font-size:15px;color:#e6e6e6;max-width:600px;margin:0 auto 24px">
+      Clique no play do dia desejado para ouvir a oração em áudio e sinta-se acompanhado espiritualmente em sua jornada.
     </p>
+
     <div class="row g-4 justify-content-center">
 
       <!-- DIA 1 -->
       <div class="col-md-6 col-lg-4">
         <div class="day-card">
           <div class="day-badge">Dia 1</div>
-          <h3 class="day-title">Conexão com o Anjo da Guarda</h3>
-          <p class="day-description">Ouça e aproxime-se do seu protetor celestial, seguindo o exemplo de Nossa Senhora.</p>
-          <div class="audio-player">
-            <button onclick="toggleAudio(0)" id="btn0"><i class="fas fa-play"></i></button>
-            <audio id="audio0" src="audios/Dia 1.mp3"></audio>
+          <h3 class="day-title">Entrega dos Nós</h3>
+          <p class="day-description">Apresente a Nossa Senhora todos os nós da sua vida e entregue-os com confiança.</p>
+          <div class="audio-player" id="player0">
+            <button class="play-btn" onclick="toggleAudio(0)" id="btn0"><i class="fas fa-play"></i></button>
+            <div class="progress-wrap">
+              <div class="progress-bar-bg" onclick="seekAudio(event,0)"><div class="progress-bar-fill" id="prog0"></div></div>
+              <div class="time-label" id="time0">0:00</div>
+            </div>
           </div>
+          <audio id="audio0" src="audios/Dia 1.mp3" preload="metadata"></audio>
         </div>
       </div>
+
       <!-- DIA 2 -->
       <div class="col-md-6 col-lg-4">
         <div class="day-card">
           <div class="day-badge">Dia 2</div>
-          <h3 class="day-title">Oração para a Cura</h3>
+          <h3 class="day-title">Cura e Saúde</h3>
           <p class="day-description">Apresente ao Senhor suas doenças físicas e feridas emocionais para receber a cura divina.</p>
-          <div class="audio-player">
-            <button onclick="toggleAudio(1)" id="btn1"><i class="fas fa-play"></i></button>
-            <audio id="audio1" src="audios/Dia 2.mp3"></audio>
+          <div class="audio-player" id="player1">
+            <button class="play-btn" onclick="toggleAudio(1)" id="btn1"><i class="fas fa-play"></i></button>
+            <div class="progress-wrap">
+              <div class="progress-bar-bg" onclick="seekAudio(event,1)"><div class="progress-bar-fill" id="prog1"></div></div>
+              <div class="time-label" id="time1">0:00</div>
+            </div>
           </div>
+          <audio id="audio1" src="audios/Dia 2.mp3" preload="metadata"></audio>
         </div>
       </div>
+
       <!-- DIA 3 -->
       <div class="col-md-6 col-lg-4">
         <div class="day-card">
           <div class="day-badge">Dia 3</div>
-          <h3 class="day-title">Oração para a Prosperidade</h3>
+          <h3 class="day-title">Prosperidade e Provisão</h3>
           <p class="day-description">Peça bênçãos para sua vida material e financeira, confiando na divina providência.</p>
-          <div class="audio-player">
-            <button onclick="toggleAudio(2)" id="btn2"><i class="fas fa-play"></i></button>
-            <audio id="audio2" src="audios/Dia 3.mp3"></audio>
+          <div class="audio-player" id="player2">
+            <button class="play-btn" onclick="toggleAudio(2)" id="btn2"><i class="fas fa-play"></i></button>
+            <div class="progress-wrap">
+              <div class="progress-bar-bg" onclick="seekAudio(event,2)"><div class="progress-bar-fill" id="prog2"></div></div>
+              <div class="time-label" id="time2">0:00</div>
+            </div>
           </div>
+          <audio id="audio2" src="audios/Dia 3.mp3" preload="metadata"></audio>
         </div>
       </div>
+
       <!-- DIA 4 -->
       <div class="col-md-6 col-lg-4">
         <div class="day-card">
           <div class="day-badge">Dia 4</div>
           <h3 class="day-title">Proteção da Família</h3>
-          <p class="day-description">Coloque sua família sob a proteção divina e sob o manto de Maria Santíssima.</p>
-          <div class="audio-player">
-            <button onclick="toggleAudio(3)" id="btn3"><i class="fas fa-play"></i></button>
-            <audio id="audio3" src="audios/Dia 4.mp3"></audio>
+          <p class="day-description">Coloque sua família sob o manto protetor de Nossa Senhora, pedindo que Ela desfaça os nós.</p>
+          <div class="audio-player" id="player3">
+            <button class="play-btn" onclick="toggleAudio(3)" id="btn3"><i class="fas fa-play"></i></button>
+            <div class="progress-wrap">
+              <div class="progress-bar-bg" onclick="seekAudio(event,3)"><div class="progress-bar-fill" id="prog3"></div></div>
+              <div class="time-label" id="time3">0:00</div>
+            </div>
           </div>
+          <audio id="audio3" src="audios/Dia 4.mp3" preload="metadata"></audio>
         </div>
       </div>
+
       <!-- DIA 5 -->
       <div class="col-md-6 col-lg-4">
         <div class="day-card">
           <div class="day-badge">Dia 5</div>
-          <h3 class="day-title">Paz Interior</h3>
-          <p class="day-description">Clame por essa paz que supera todo entendimento e que só Cristo pode dar.</p>
-          <div class="audio-player">
-            <button onclick="toggleAudio(4)" id="btn4"><i class="fas fa-play"></i></button>
-            <audio id="audio4" src="audios/Dia 5 .mp3"></audio>
+          <h3 class="day-title">Paz Interior e Libertação</h3>
+          <p class="day-description">Peça a Nossa Senhora que desfaça os nós da ansiedade, do medo e da angústia.</p>
+          <div class="audio-player" id="player4">
+            <button class="play-btn" onclick="toggleAudio(4)" id="btn4"><i class="fas fa-play"></i></button>
+            <div class="progress-wrap">
+              <div class="progress-bar-bg" onclick="seekAudio(event,4)"><div class="progress-bar-fill" id="prog4"></div></div>
+              <div class="time-label" id="time4">0:00</div>
+            </div>
           </div>
+          <audio id="audio4" src="audios/Dia 5.mp3" preload="metadata"></audio>
         </div>
       </div>
+
       <!-- DIA 6 -->
       <div class="col-md-6 col-lg-4">
         <div class="day-card">
           <div class="day-badge">Dia 6</div>
-          <h3 class="day-title">Oração de Gratidão</h3>
-          <p class="day-description">Eleve um cântico de louvor e agradecimento a Deus por todas as graças recebidas.</p>
-          <div class="audio-player">
-            <button onclick="toggleAudio(5)" id="btn5"><i class="fas fa-play"></i></button>
-            <audio id="audio5" src="audios/Dia 6 .mp3"></audio>
+          <h3 class="day-title">Gratidão e Louvor</h3>
+          <p class="day-description">Eleve seu coração em gratidão a Nossa Senhora pelas graças já alcançadas.</p>
+          <div class="audio-player" id="player5">
+            <button class="play-btn" onclick="toggleAudio(5)" id="btn5"><i class="fas fa-play"></i></button>
+            <div class="progress-wrap">
+              <div class="progress-bar-bg" onclick="seekAudio(event,5)"><div class="progress-bar-fill" id="prog5"></div></div>
+              <div class="time-label" id="time5">0:00</div>
+            </div>
           </div>
+          <audio id="audio5" src="audios/Dia 6.mp3" preload="metadata"></audio>
         </div>
       </div>
+
       <!-- DIA 7 -->
       <div class="col-md-6 col-lg-4">
         <div class="day-card">
           <div class="day-badge">Dia 7</div>
-          <h3 class="day-title">Compromisso e Perseverança</h3>
-          <p class="day-description">Assuma um compromisso de perseverar na vida espiritual, seguindo o exemplo de Nossa Senhora Desatadora de Nos.</p>
-          <div class="audio-player">
-            <button onclick="toggleAudio(6)" id="btn6"><i class="fas fa-play"></i></button>
-            <audio id="audio6" src="audios/Dia 7.mp3"></audio>
+          <h3 class="day-title">Renovação e Perseverança</h3>
+          <p class="day-description">Renove sua fé e seu compromisso de viver sob o manto de Nossa Senhora.</p>
+          <div class="audio-player" id="player6">
+            <button class="play-btn" onclick="toggleAudio(6)" id="btn6"><i class="fas fa-play"></i></button>
+            <div class="progress-wrap">
+              <div class="progress-bar-bg" onclick="seekAudio(event,6)"><div class="progress-bar-fill" id="prog6"></div></div>
+              <div class="time-label" id="time6">0:00</div>
+            </div>
           </div>
+          <audio id="audio6" src="audios/Dia 7.mp3" preload="metadata"></audio>
         </div>
       </div>
-    </div>
-    <!-- FIM  -->
 
-    <div class="text-center mt-3 mb-4">
-      <a href="https://conexaoprosperidade.site/inicio-oracoes-principal" class="btn btn-outline-light"><i class="fas fa-home me-2"></i> Voltar ao Início</a>
+      <!-- DIA 8 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="day-card">
+          <div class="day-badge">Dia 8</div>
+          <h3 class="day-title">Cura dos Relacionamentos</h3>
+          <p class="day-description">Peça a Nossa Senhora que desfaça os nós que afastam pessoas queridas e restaure os laços do amor.</p>
+          <div class="audio-player" id="player7">
+            <button class="play-btn" onclick="toggleAudio(7)" id="btn7"><i class="fas fa-play"></i></button>
+            <div class="progress-wrap">
+              <div class="progress-bar-bg" onclick="seekAudio(event,7)"><div class="progress-bar-fill" id="prog7"></div></div>
+              <div class="time-label" id="time7">0:00</div>
+            </div>
+          </div>
+          <audio id="audio7" src="audios/Dia 8.mp3" preload="metadata"></audio>
+        </div>
+      </div>
+
+      <!-- DIA 9 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="day-card" style="border-color:rgba(212,175,55,.9)">
+          <div class="day-badge" style="background:linear-gradient(135deg,#b8870b,#f7de6a,#b8870b)">Dia 9 ✦</div>
+          <h3 class="day-title">Consagração Final</h3>
+          <p class="day-description">No último dia da novena, consagre-se a Nossa Senhora Desatadora de Nós e renove sua fé para sempre.</p>
+          <div class="audio-player" id="player8">
+            <button class="play-btn" onclick="toggleAudio(8)" id="btn8"><i class="fas fa-play"></i></button>
+            <div class="progress-wrap">
+              <div class="progress-bar-bg" onclick="seekAudio(event,8)"><div class="progress-bar-fill" id="prog8"></div></div>
+              <div class="time-label" id="time8">0:00</div>
+            </div>
+          </div>
+          <audio id="audio8" src="audios/Dia 9.mp3" preload="metadata"></audio>
+        </div>
+      </div>
+
     </div>
+
+    <div class="text-center mt-4 mb-2">
+      <a href="https://conexaoprosperidade.site/inicio-oracoes-principal" class="btn-voltar">
+        <i class="fas fa-home me-2"></i>Voltar ao Início
+      </a>
+    </div>
+
   </div>
+
+  <script src="js/bootstrap.bundle.min.js"></script>
   <script>
-    // Pausa todos os áudios e reseta botões play/pause ao abrir outro
+    const TOTAL = 9;
+
+    function fmtTime(s) {
+      if (isNaN(s)) return '0:00';
+      const m = Math.floor(s / 60);
+      const sec = Math.floor(s % 60);
+      return m + ':' + (sec < 10 ? '0' : '') + sec;
+    }
+
     function toggleAudio(idx) {
-      for (let i = 0; i <= 6; i++) {
-        const audio = document.getElementById('audio' + i);
-        const btn = document.getElementById('btn' + i);
+      for (let i = 0; i < TOTAL; i++) {
+        const a = document.getElementById('audio' + i);
+        const b = document.getElementById('btn' + i);
+        if (!a) continue;
         if (i === idx) {
-          if (audio.paused) {
-            audio.play();
-            btn.innerHTML = '<i class="fas fa-pause"></i>';
+          if (a.paused) {
+            a.play().catch(() => {});
+            b.innerHTML = '<i class="fas fa-pause"></i>';
           } else {
-            audio.pause();
-            btn.innerHTML = '<i class="fas fa-play"></i>';
+            a.pause();
+            b.innerHTML = '<i class="fas fa-play"></i>';
           }
         } else {
-          audio.pause();
-          audio.currentTime = 0;
-          btn.innerHTML = '<i class="fas fa-play"></i>';
+          a.pause();
+          a.currentTime = 0;
+          b.innerHTML = '<i class="fas fa-play"></i>';
+          document.getElementById('prog' + i).style.width = '0%';
+          document.getElementById('time' + i).textContent = '0:00';
         }
       }
     }
-    // Ao terminar o áudio, reseta botão para play
-    for (let i = 0; i <= 6; i++) {
-      const audio = document.getElementById('audio' + i);
-      const btn = document.getElementById('btn' + i);
-      if(audio){
-        audio.addEventListener('ended', () => {
-          btn.innerHTML = '<i class="fas fa-play"></i>';
+
+    function seekAudio(e, idx) {
+      const a = document.getElementById('audio' + idx);
+      if (!a || !a.duration) return;
+      const rect = e.currentTarget.getBoundingClientRect();
+      const pct = (e.clientX - rect.left) / rect.width;
+      a.currentTime = pct * a.duration;
+    }
+
+    for (let i = 0; i < TOTAL; i++) {
+      (function(idx) {
+        const a = document.getElementById('audio' + idx);
+        const b = document.getElementById('btn' + idx);
+        const p = document.getElementById('prog' + idx);
+        const t = document.getElementById('time' + idx);
+        if (!a) return;
+
+        a.addEventListener('timeupdate', () => {
+          if (a.duration) {
+            p.style.width = (a.currentTime / a.duration * 100) + '%';
+            t.textContent = fmtTime(a.currentTime) + ' / ' + fmtTime(a.duration);
+          }
         });
-      }
+        a.addEventListener('ended', () => {
+          b.innerHTML = '<i class="fas fa-play"></i>';
+          p.style.width = '0%';
+          a.currentTime = 0;
+        });
+        a.addEventListener('error', () => {
+          b.disabled = true;
+          b.style.opacity = '0.4';
+          t.textContent = 'indisponível';
+        });
+      })(i);
     }
   </script>
 </body>
